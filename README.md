@@ -1,2 +1,2 @@
-# sticky-tooltip
-sticky tooltip
+# Sticky Tooltip
+https://andriibozhko1.github.io/sticky-tooltip/.
