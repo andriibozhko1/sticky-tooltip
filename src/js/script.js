@@ -3,36 +3,30 @@
     const toolTip = document.createElement("div");
     toolTip.classList.add("tooltip");
     document.body.appendChild(toolTip);
+  }
 
-    function throttle(func, ms) {
-      var isThrottled = false;
-        let savedArgs;
-        let savedThis;
-
-      function wrapper() {
-        if (isThrottled) {                                               
-          savedArgs = arguments;
-          savedThis = this;
-          return;
-        }
-
-        func.apply(this, arguments);
-
-        isThrottled = true;
+  const throttle = function(fn, time) {
+    let pause = false;
+    let tempArg;
+    return function delay() {
+      if (!pause) {
+        pause = true;
+        fn.apply(this, arguments);
 
         setTimeout(function() {
-          isThrottled = false;
-          if (savedArgs) {       
-            wrapper.apply(this,savedArgs)       
-            savedArgs = null;          
+          pause = false;
+          if(tempArg) {
+            delay.apply(this,tempArg);
+            tempArg = null;
           }
-        }, ms);
+        }, time);
       }
-
-      return wrapper;
-    }
+      tempArg = arguments;
+    };
+  };
 
     let showToolTip =  function(X,Y) {
+      const toolTip = document.querySelector('.tooltip');
       toolTip.style.left = X + "px";
       toolTip.style.top = Y - 130 + "px";
       toolTip.innerHTML = "X :" + X + " Y: " + Y;
@@ -41,6 +35,5 @@
     window.addEventListener("mousemove", function(e) {
       showToolTip(e.screenX,e.screenY);
     });
-  };
   createToolTip();
 }());
