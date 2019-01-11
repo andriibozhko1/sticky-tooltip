@@ -4,4 +4,5 @@
   color: #fff;
   padding: 10px;
   border-radius: 10px;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  transition: 1s; }
